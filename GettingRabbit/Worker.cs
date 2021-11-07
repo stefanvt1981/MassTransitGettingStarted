@@ -22,7 +22,7 @@ namespace GettingRabbit
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _bus.Publish(new Message {Text = $"The time is {DateTimeOffset.Now}"});
+                await _bus.Publish(new Message {Text = $"The Time is {DateTimeOffset.Now}"});
 
                 await Task.Delay(1000, stoppingToken);
             }
