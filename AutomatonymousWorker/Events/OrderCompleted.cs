@@ -2,7 +2,7 @@ using System;
 
 namespace AutomatonymousWorker.Events
 {
-    public interface FinalizeOrder
+    public interface OrderCompleted
     {
         Guid OrderId { get; }  
     }

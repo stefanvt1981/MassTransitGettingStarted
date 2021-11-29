@@ -2,7 +2,7 @@ using System;
 
 namespace AutomatonymousWorker.Events
 {
-    public interface AcceptOrder
+    public interface OrderAccepted
     {
         Guid OrderId { get; }  
     }

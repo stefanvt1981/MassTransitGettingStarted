@@ -5,4 +5,12 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MassTransit" Version="7.3.0-develop.302" />
+      <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="7.3.0-develop.302" />
+      <PackageReference Include="MassTransit.EventHub" Version="7.3.0-develop.302" />
+      <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.0-develop.302" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    </ItemGroup>
+
 </Project>

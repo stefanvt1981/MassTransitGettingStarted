@@ -2,7 +2,7 @@ using System;
 
 namespace AutomatonymousWorker.Events
 {
-    public interface RejectOrder
+    public interface OrderRejected
     {
         Guid OrderId { get; } 
         string Reason { get; }
