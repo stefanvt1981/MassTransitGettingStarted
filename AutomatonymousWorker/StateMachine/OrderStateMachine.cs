@@ -7,18 +7,24 @@ namespace AutomatonymousWorker.StateMachine
     public class OrderStateMachine :
         MassTransitStateMachine<OrderState>
     {
+        
         public State Submitted { get; private set; }
         public State Accepted { get; private set; }
         public State Rejected { get; private set; }
-        
         public State Cancelled { get; private set; }
         
         public OrderStateMachine()
         {
-            InstanceState(x => x.CurrentState);
+            InstanceState(x => x.CurrentState, Submitted, Accepted, Rejected, Cancelled);
             
+            Event(() => OrderSubmitted, x => x.CorrelateById(c => c.Message.OrderId));
+            Event(() => OrderAccepted, x => x.CorrelateById(c => c.Message.OrderId));
+            Event(() => OrderRejected, x => x.CorrelateById(c => c.Message.OrderId));
+            Event(() => OrderCancelled, x => x.CorrelateById(c => c.Message.OrderId));
+            Event(() => OrderCompleted, x => x.CorrelateById(c => c.Message.OrderId));
+
             Initially(
-                When(SubmitOrder)
+                When(OrderSubmitted)
                     .Then(x =>
                     {
                         x.Instance.OrderDate = x.Data.OrderDate;
@@ -28,7 +34,7 @@ namespace AutomatonymousWorker.StateMachine
                 When(OrderAccepted)
                     .Then(context => Console.WriteLine("Accept order"))
                     .TransitionTo(Accepted),
-                When(CancelOrder)
+                When(OrderCancelled)
                     .Then(context => Console.WriteLine("Cancel order"))
                     .TransitionTo(Cancelled));
 
@@ -42,18 +48,18 @@ namespace AutomatonymousWorker.StateMachine
                 );
 
             During(Accepted,
-                When(SubmitOrder)
+                When(OrderSubmitted)
                     .Then(x =>
                     {
                         x.Instance.OrderDate = x.Data.OrderDate;
                         Console.WriteLine("Order date updated (SubmitOrder)");
                     }),
-                When(CancelOrder)
+                When(OrderCancelled)
                     .Then(context => Console.WriteLine("Cancel order"))
                     .TransitionTo(Cancelled));
             
             During(Rejected, 
-                Ignore(SubmitOrder), Ignore(CancelOrder));
+                Ignore(OrderSubmitted), Ignore(OrderCancelled));
             
             DuringAny(
                 When(OrderCompleted)
@@ -61,10 +67,10 @@ namespace AutomatonymousWorker.StateMachine
                     .Finalize());
         }
         
-        public Event<SubmitOrder> SubmitOrder { get; private set; }
+        public Event<OrderSubmitted> OrderSubmitted { get; private set; }
         public Event<OrderAccepted> OrderAccepted { get; private set; }
         public Event<OrderRejected> OrderRejected { get; private set; }
-        public Event<CancelOrder> CancelOrder { get; private set; }
+        public Event<OrderCancelled> OrderCancelled { get; private set; }
         public Event<OrderCompleted> OrderCompleted { get; private set; }
 
     }

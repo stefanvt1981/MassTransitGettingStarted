@@ -2,7 +2,7 @@ using System;
 
 namespace AutomatonymousWorker.Events
 {
-    public class CancelOrder
+    public interface OrderCancelled
     {
         Guid OrderId { get; }  
     }

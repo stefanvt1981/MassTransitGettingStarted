@@ -2,7 +2,7 @@ using System;
 
 namespace AutomatonymousWorker.Events
 {
-    public interface SubmitOrder
+    public interface OrderSubmitted
     {
         Guid OrderId { get; }    
         DateTime OrderDate { get; }
