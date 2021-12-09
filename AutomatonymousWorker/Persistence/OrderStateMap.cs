@@ -3,7 +3,7 @@ using MassTransit.EntityFrameworkCoreIntegration.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AutomatonymousWorker.Persistance
+namespace AutomatonymousWorker.Persistence
 {
     public class OrderStateMap : SagaClassMap<OrderState>
     {

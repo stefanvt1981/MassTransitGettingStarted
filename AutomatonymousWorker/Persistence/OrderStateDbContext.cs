@@ -3,7 +3,7 @@ using MassTransit.EntityFrameworkCoreIntegration;
 using MassTransit.EntityFrameworkCoreIntegration.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace AutomatonymousWorker.Persistance
+namespace AutomatonymousWorker.Persistence
 {
     public class OrderStateDbContext : SagaDbContext
     {

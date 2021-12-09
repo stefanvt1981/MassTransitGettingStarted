@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using AutomatonymousWorker.Persistance;
+using AutomatonymousWorker.Persistence;
 using AutomatonymousWorker.StateMachine;
 using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;

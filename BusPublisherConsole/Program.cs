@@ -62,7 +62,7 @@ namespace BusPublisherConsole
                         break;
                     case "3":
                         lastCommand = $"Send OrderRejected OrderId: {orderId}";
-                        bus.Publish<OrderRejected>(new { OrderId = orderId, Reason = "Stupid order..." });
+                        bus.Publish<OrderRejected>(new { OrderId = orderId, RejectReason = "Stupid order..." });
                         break;
                     case "4":
                         lastCommand = $"Send OrderCancelled OrderId: {orderId}";

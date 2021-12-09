@@ -43,7 +43,11 @@ namespace AutomatonymousWorker.StateMachine
                     .Then(context => Console.WriteLine("Accept order"))
                     .TransitionTo(Accepted),
                 When(OrderRejected)
-                    .Then(context => Console.WriteLine("Reject order"))
+                    .Then(context =>
+                    {
+                        context.Instance.RejectReason = context.Data.RejectReason;
+                        Console.WriteLine("Reject order");
+                    })
                     .TransitionTo(Rejected)
                 );
 

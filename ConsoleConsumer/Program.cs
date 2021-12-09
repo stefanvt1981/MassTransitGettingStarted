@@ -1,18 +1,19 @@
-﻿namespace EventHubConsumer
-{
-    using System;
-    using System.Threading.Tasks;
-    using MassTransit;
-    using MassTransit.Azure.ServiceBus.Core;
-    using MassTransit.EventHubIntegration;
-    using Microsoft.Extensions.DependencyInjection;
+﻿using MassTransit;
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
+namespace EventHubConsumer
+{
     public class Program
     {
-        public static async Task Main()
+        public static async Task Main(string[] args)
         {
+            //CreateHostBuilder(args).Build().Run();
+            
             var services = new ServiceCollection();
-
+            
             services.AddMassTransit(x =>
             {
                 x.UsingAzureServiceBus((context, cfg) =>
@@ -39,7 +40,16 @@
                     });
                 });
             });
+                    
+            services.AddMassTransitHostedService(true);
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    
+                });
 
         class EventHubMessageConsumer :
             IConsumer<EventHubMessage>
